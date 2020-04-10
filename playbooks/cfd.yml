@@ -1,7 +1,7 @@
 - hosts: compute
   become: true
   tasks:
-  - name: LibX libraries
+  - name: CFD Librairies for main applications
     yum:
       name:
         - pax
