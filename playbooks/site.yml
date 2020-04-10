@@ -234,5 +234,17 @@
 - import_playbook: slurm.yml
   when:
     - scheduler == "SLURM"
+    
+- import_playbook: cfd.yml
+
+- import_playbook: locale.yml
+
+- import_playbook: gluster.yml
+  when:
+    - gluster_share|bool
+
+- import_playbook: openfoam.yml
+  when:
+    - openfoam_install|bool
 
 - import_playbook: examples.yml
