@@ -140,3 +140,15 @@ variable "intel_mpi_version" {
   default = "2019.4-070"
 }
 
+
+variable "gluster_share" { 
+  default = true
+}
+
+variable "gluster_servers" {
+  default = 3
+}
+
+variable "openfoam_install" {
+  default = true
+}
