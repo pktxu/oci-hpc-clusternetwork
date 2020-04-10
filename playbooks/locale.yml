@@ -1,0 +1,15 @@
+- hosts: compute
+  become: true
+  tasks:
+  - name: locale_LC_CTYPE
+    lineinfile:
+      path: /etc/opt/oci-hpc/bashrc/.bashrc
+      line: LC_CTYPE="en_US.UTF-8"
+  - name: locale_LC_ALL
+    lineinfile:
+      path: /etc/opt/oci-hpc/bashrc/.bashrc
+      line: LC_ALL="en_US.UTF-8"
+  - name: locale_LANG
+    lineinfile:
+      path: /etc/opt/oci-hpc/bashrc/.bashrc
+      line: LANG="en_US.UTF-8"
