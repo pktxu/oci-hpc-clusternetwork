@@ -48,11 +48,16 @@ resource "oci_core_instance" "bastion" {
       public_subnet = data.oci_core_subnet.public_subnet.cidr_block, 
       private_subnet = data.oci_core_subnet.private_subnet.cidr_block, 
       nfs = data.oci_core_cluster_network_instances.cluster_network_instances.instances[0]["display_name"],
+      gluster = slice(reverse(data.oci_core_cluster_network_instances.cluster_network_instances.instances.*.display_name), 0, var.gluster_servers),
       scheduler = var.scheduler,
       configure_nfs = var.configure_nfs,
       nfs_mount_path = var.nfs_mount_path,
       intel_mpi_version = var.intel_mpi_version, 
-      intel_mpi = var.intel_mpi
+      intel_mpi = var.intel_mpi,
+      gluster_share = var.gluster_share,
+      gluster_servers = var.gluster_servers,
+      openfoam_install = var.openfoam_install,
+      openfoam_path = var.gluster_share ? "/mnt/gluster-share/" : "/mnt/nfs-share" 
       })
 
     destination   = "/home/opc/playbooks/inventory"
