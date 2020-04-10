@@ -6,6 +6,10 @@ ${host} ansible_host=${ip} ansible_user=opc role=compute
 %{ endfor ~}
 [nfs]
 ${nfs}
+[gluster]
+%{ for host in gluster ~}
+${host}
+%{ endfor ~}
 [all:children]
 bastion
 compute
@@ -23,3 +27,8 @@ nvme_path=/mnt/localdisk/
 nfs_export_path=/mnt/localdisk/nfs-share
 nfs_mount_path=${nfs_mount_path}
 scheduler=${scheduler}
+gluster_share=${gluster_share}
+gluster_servers=${gluster_servers}
+openfoam_install=${openfoam_install}
+openfoam_path=${openfoam_path}
+
