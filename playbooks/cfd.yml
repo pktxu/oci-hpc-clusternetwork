@@ -32,3 +32,10 @@
         - glibc.i686
         - zlib.i686
       state: present
+  - name: Raise memory limits
+    lineinfile:
+      path: /etc/security/limits.conf
+      line: '*            hard   memlock           unlimited'
+    lineinfile:
+      path: /etc/security/limits.conf
+      line: '*            soft   memlock           unlimited'
