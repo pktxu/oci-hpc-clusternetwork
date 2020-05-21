@@ -38,6 +38,39 @@ resource "oci_core_security_list" "internal-security-list" {
   }
 }
 
+resource "oci_core_security_list" "storage-security-list" {
+  count          = var.use_existing_vcn ? 0 : 1
+  vcn_id         = oci_core_vcn.vcn[0].id
+  compartment_id = var.compartment_ocid
+
+  ingress_security_rules {
+    protocol = "all"
+    source   = var.vcn_subnet
+  }
+  egress_security_rules {
+    protocol    = "all"
+    destination = "0.0.0.0/0"
+  }
+
+  ingress_security_rules { 
+    protocol = "1"
+    source = "0.0.0.0/0"
+    icmp_options { 
+      type = "3"
+      code = "4"
+    }
+  }
+
+  ingress_security_rules { 
+    protocol = "1"
+    source = var.vcn_subnet
+    icmp_options { 
+      type = "3"
+    }
+  }
+}
+
+
 resource "oci_core_security_list" "public-security-list" {
   count          = var.use_existing_vcn ? 0 : 1
   vcn_id         = oci_core_vcn.vcn[0].id
@@ -107,6 +140,19 @@ resource "oci_core_route_table" "public_route_table" {
   }
 }
 
+resource "oci_core_route_table" "storage_route_table" {
+  count          = var.use_existing_vcn ? 0 : 1
+  display_name   = "${local.cluster_name}_storage_route_table"
+  compartment_id = var.compartment_ocid
+  vcn_id         = oci_core_vcn.vcn[0].id
+
+  route_rules {
+    destination       = "0.0.0.0/0"
+    destination_type  = "CIDR_BLOCK"
+    network_entity_id = oci_core_nat_gateway.ng1[0].id
+  }
+}
+
 resource "oci_core_route_table" "private_route_table" {
   count          = var.use_existing_vcn ? 0 : 1
   display_name   = "${local.cluster_name}_private_route_table"
@@ -144,3 +190,17 @@ resource "oci_core_subnet" "private-subnet" {
   prohibit_public_ip_on_vnic = true
   route_table_id             = oci_core_route_table.private_route_table[0].id
 }
+
+resource "oci_core_subnet" "storage-subnet" {
+  count                      = var.use_existing_vcn ? 0 : 1
+  # availability_domain        = var.ad
+  vcn_id                     = oci_core_vcn.vcn[0].id
+  compartment_id             = var.compartment_ocid
+  cidr_block                 = trimspace(var.storage_subnet)
+  security_list_ids          = [oci_core_security_list.storage-security-list[0].id]
+  dns_label                  = "storage"
+  display_name               = "${local.cluster_name}_storage_subnet"
+  prohibit_public_ip_on_vnic = true
+  route_table_id             = oci_core_route_table.storage_route_table[0].id
+}
+

@@ -47,7 +47,7 @@ variable "compartment_ocid" {
 }
 
 variable "vcn_subnet" {
-  default = "172.16.0.0/23"
+  default = "172.16.0.0/21"
 }
 
 variable "public_subnet" {
@@ -55,8 +55,12 @@ variable "public_subnet" {
 }
 
 variable "private_subnet" {
-  default = "172.16.1.0/24"
+  default = "172.16.1.0/23"
 }
+
+variable "storage_subnet" { 
+  default = "172.16.3.0/24" 
+} 
 
 variable "ssh_cidr" { 
   default = "0.0.0.0/0"
