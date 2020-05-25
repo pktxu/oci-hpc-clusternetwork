@@ -1,7 +1,7 @@
 - hosts: compute
   become: true
   tasks:
-  - name: CFD Librairies for main applications
+  - name: Add Librairies for main CFD softwares
     yum:
       name:
         - pax
@@ -32,10 +32,3 @@
         - glibc.i686
         - zlib.i686
       state: present
-  - name: Raise memory limits
-    lineinfile:
-      path: /etc/security/limits.conf
-      line: '*            hard   memlock           unlimited'
-    lineinfile:
-      path: /etc/security/limits.conf
-      line: '*            soft   memlock           unlimited'
