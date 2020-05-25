@@ -11,8 +11,6 @@ groupings:
   - ${ssh_key}
   - ${use_custom_name}
   - ${cluster_name}
-  - ${configure_nfs}
-  - ${nfs_mount_path}
 - title: "Bastion options" 
   variables: 
   - ${bastion_ad}
@@ -39,8 +37,10 @@ groupings:
   - ${private_subnet}
   - ${public_subnet}
   - ${ssh_cidr}
-- title: "Gluster" 
+- title: "File System" 
   variables: 
+  - ${configure_nfs}
+  - ${nfs_mount_path}
   - ${gluster_share}
   - ${gluster_servers}
 - title: "OpenFOAM" 
@@ -260,6 +260,7 @@ variables:
     
   gluster_share:
     type: boolean
+    description: "Configure Gluster share accessible on all nodes"
     default: true
     title: "Install Gluster File System"
     required: false
