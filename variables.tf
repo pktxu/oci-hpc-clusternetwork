@@ -11,7 +11,7 @@ variable "region" {
 #variable "fingerprint" {
 #}
 variable "image" {
-  default = "ocid1.image.oc1..aaaaaaaafgzcla4pkskkegec3okzhbtmaylnldbxoa4ln7d6npytnqwu3mca"
+  default = "ocid1.image.oc1..aaaaaaaa5yxem7wzie34hi5km4qm2t754tsfxrjuefyjivebrxjad4jcj5oa"
 }
 
 variable "use_custom_name" { 
@@ -97,6 +97,7 @@ variable "bastion_image" {
 	"us-langley-1"		=    "ocid1.image.oc2.us-langley-1.aaaaaaaauckkms7acrl6to3cuhmv6hfjqwlnoxzuzophaose7pi2sfk4dzna"
 	"us-luke-1"		=    "ocid1.image.oc2.us-luke-1.aaaaaaaadxeycutztmvaeefvilc57lfqool2rlgl2r34juyu4jkbodx2xspq"
 	"us-phoenix-1"		=    "ocid1.image.oc1.phx.aaaaaaaacy7j7ce45uckgt7nbahtsatih4brlsa2epp5nzgheccamdsea2yq"
+	"ap-osaka-1"		=    "ocid1.image.oc1.ap-osaka-1.aaaaaaaa23apvyouh3fuiw7aqjo574zsmgdwtetato6uxgu7tct7y4uaqila"
   }
 }
 
@@ -146,7 +147,7 @@ variable "gluster_share" {
 }
 
 variable "gluster_servers" {
-  default = 3
+  default = 2
 }
 
 variable "openfoam_install" {
