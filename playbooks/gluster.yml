@@ -53,22 +53,7 @@
       options:
         { ctime: 'off'
         }
-    ignore_errors: true
-    when: gluster_servers < 3
-  - name: create gluster volume
-    gluster_volume:
-      state: present
-      name: gluster-share
-      bricks: /mnt/localdisk/gluster-export
-      rebalance: yes
-      disperses: "{{ vars.gluster_servers }}"
-      redundancies: 1
-      cluster: "{{ groups.gluster | join(',') }}"
-      options:
-        { ctime: 'off'
-        }
-    ignore_errors: true
-    when: gluster_servers > 2 
+    ignore_errors: true 
   - name: start gluster volume
     gluster_volume:
       state: started
@@ -91,4 +76,5 @@
       name: /mnt/gluster-share/
       src: "{{ groups.gluster[0] }}:gluster-share"
       fstype: glusterfs
+      opts: defaults,noatime
       state: mounted
