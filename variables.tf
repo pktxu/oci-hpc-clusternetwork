@@ -15,11 +15,13 @@ variable "image" {
 }
 
 variable "use_custom_name" { 
-  default = 0 
+  type = bool
+  default = false
 } 
 
 variable "configure_nfs" { 
-  default = 1
+  type = bool
+  default = true
 }
 
 variable "nfs_mount_path" { 
@@ -67,6 +69,7 @@ variable "ssh_cidr" {
 }
 
 variable "private" {
+  type = bool
   default = true
 }
 
@@ -110,15 +113,18 @@ variable "custom_bastion_image" {
 } 
 
 variable "use_marketplace_image" {
-  default = 1
+  type = bool
+  default = true
 }
 
 variable "use_standard_image" { 
-  default = 1
+  type = bool
+  default = true
 } 
 
 variable "use_existing_vcn" {
-  default = 0
+  type = bool
+  default = false
 }
 
 variable "vcn_id" {
@@ -138,6 +144,7 @@ variable "scheduler" {
 } 
 
 variable "intel_mpi" { 
+  type = bool
   default = true
 }
 
